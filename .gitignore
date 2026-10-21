@@ -1,0 +1,7 @@
+# Archivos generados: se publican en las releases, no en el repo
+*.stl
+*.3mf
+*.gcode
+
+# Copias locales
+*_v[0-9]*.scad
