@@ -20,8 +20,8 @@ radio_filete       = 2;   // esquinas interiores entre laterales y placa
 fn_bordes          = 40;  // resolución de los redondeos
 
 /* [Huecos] */
-ancho_hueco_frente = 56;  // abertura vertical en el frente
-ancho_hueco_piso   = 40;  // abertura en el piso (para el cable)
+ancho_hueco_frente = 66;  // abertura vertical en el frente
+ancho_hueco_piso   = 56;  // abertura en el piso (para el cable)
 
 /* [Texto] */
 texto             = "MOISES";

@@ -5,3 +5,7 @@
 
 # Copias locales
 *_v[0-9]*.scad
+
+# SolidCraft: respaldos y caché
+*.solidcraft.bak
+__pycache__/

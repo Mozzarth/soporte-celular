@@ -42,3 +42,12 @@ nombre, abajo y a los dos costados. No pongas cinta detrás de los puntos.
 ## Fuente
 
 Requiere *JetBrainsMono Nerd Font* (Bold) instalada para generar el texto.
+
+## Versión en SolidCraft (prueba)
+
+`solidcraft/` tiene el modelo en [SolidCraft](https://github.com/tangency-labs/solidcraft):
+
+- `soporte.solidcraft`: el diseño para abrir en la app.
+- `soporte.json`: el script que lo reconstruye (`solidcraft-cli run soporte.json --save soporte.solidcraft`).
+- `gen.py`, `build.py`, `boca.py`, `bordes.py`, `punta.py`: los generadores de ese script.
+- `live.py`: maneja en vivo una ventana abierta con `solidcraft --control 7878`.

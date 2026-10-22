@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.1.0
+
+- OpenSCAD: abertura frontal de 56 a 66 mm (aletas de 10 mm) y del piso de 40 a 56 mm.
+- Nueva versión en SolidCraft (`solidcraft/`), con cambios que aún no están en OpenSCAD:
+  - Piso hueco: queda un reborde de 6 mm que sigue las paredes y da la vuelta por detrás de las aletas.
+  - Boca en forma de embudo para recibir el celular: paredes de 45.5 mm + boca de 4.5 mm (alto total
+    50 mm, igual que antes) que se abre 2 mm al frente y a los lados, unida a la espalda, con el canto
+    redondeado y las puntas redondeadas vistas de frente.
+  - Corrige los rebajes de la cinta, que en el modelo de SolidCraft quedaban delante de la placa.
+  - Redondeos de 0.9 mm en el contorno de la placa y el reborde del piso, 0.45 mm en la base.
+- Para imprimir: `soporte-v1.1.0.step` (Bambu Studio lo importa y genera su propia malla).
+
 ## v1.0.1
 
 - Paredes, aletas y piso de 2.4 a 2.0 mm; placa trasera de 3 a 2.5 mm (2.0 en los rebajes).
