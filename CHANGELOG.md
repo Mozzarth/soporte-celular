@@ -1,5 +1,10 @@
 # Changelog
 
+## Sin publicar
+
+- Se deja de usar OpenSCAD: se quita `soporte.scad` y el diseño único es el de SolidCraft
+  (`solidcraft/`). `make` genera ahora `soporte.step` con `solidcraft-cli`.
+
 ## v1.1.0
 
 - OpenSCAD: abertura frontal de 56 a 66 mm (aletas de 10 mm) y del piso de 40 a 56 mm.

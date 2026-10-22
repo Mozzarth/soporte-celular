@@ -1,10 +1,13 @@
-# Requiere OpenSCAD 2024+ (nightly) para el motor Manifold: segundos en vez de ~17 min con CGAL
-OPENSCAD ?= openscad-nightly
+# El diseño vive en SolidCraft: solidcraft/soporte.json es el script que lo reconstruye.
+SOLIDCRAFT ?= solidcraft-cli
 
-soporte.3mf: soporte.scad
-	$(OPENSCAD) --backend=Manifold -o $@ $<
+soporte.step: solidcraft/soporte.json
+	$(SOLIDCRAFT) run $< --out $@ --quiet
+
+solidcraft/soporte.solidcraft: solidcraft/soporte.json
+	$(SOLIDCRAFT) run $< --save $@ --quiet
 
 clean:
-	rm -f soporte.3mf
+	rm -f soporte.step
 
 .PHONY: clean
