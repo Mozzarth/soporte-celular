@@ -1,6 +1,6 @@
 # Changelog
 
-## Sin publicar
+## v1.1.1
 
 - Se deja de usar OpenSCAD: se quita `soporte.scad` y el diseño único es el de SolidCraft
   (`solidcraft/`). `make` genera ahora `soporte.step` con `solidcraft-cli`.
