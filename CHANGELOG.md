@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.0.1
+
+- Paredes, aletas y piso de 2.4 a 2.0 mm; placa trasera de 3 a 2.5 mm (2.0 en los rebajes).
+  Pieza de 90 × 20.5 × 80 mm y ~18 % menos plástico (22.1 cm³).
+- Redondeo de bordes de 1.1 a 0.9 mm y redondeo 2D proporcional a la pared,
+  para que las paredes finas no desaparezcan.
+- Se genera con OpenSCAD nightly y el motor Manifold (segundos en vez de ~17 min).
+- El modelo se publica en 3MF en lugar de STL.
+
 ## v1.0.0
 
 Primera versión.

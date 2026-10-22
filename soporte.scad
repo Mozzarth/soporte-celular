@@ -7,15 +7,15 @@ alto_total        = 80;   // alto de la placa trasera (mm)
 ancho_interior    = 86;   // ancho del bolsillo (celular con funda 83 + holgura)
 profundidad       = 16;   // profundidad interior del bolsillo (celular con funda 14 + holgura)
 alto_bolsillo     = 50;   // alto de la pared frontal del bolsillo
-pared             = 2.4;  // grosor de paredes laterales, frontal y piso
-espesor_espalda   = 3;    // grosor de la placa que va contra la pared
+pared             = 2.0;  // grosor de paredes laterales, frontal y piso
+espesor_espalda   = 2.5;    // grosor de la placa que va contra la pared
 margen_placa      = 0;    // cuánto sobresale la placa a cada lado del bolsillo (0 = al ras)
 
 /* [Redondeos] */
 radio_placa_arriba = 12;  // esquinas superiores de la placa
 radio_placa_abajo  = 1;   // esquinas inferiores de la placa
 radio_bolsillo     = 7;   // esquinas frontales del bolsillo (vista desde arriba)
-radio_bordes       = 1.1; // redondeo de todas las aristas (máx. pared/2: borde en media caña)
+radio_bordes       = 0.9; // redondeo de todas las aristas (menor que pared/2, o la pared desaparece)
 radio_filete       = 2;   // esquinas interiores entre laterales y placa
 fn_bordes          = 40;  // resolución de los redondeos
 
@@ -57,6 +57,7 @@ ancho_ext   = ancho_interior + 2 * pared;
 ancho_placa = ancho_ext + 2 * margen_placa;
 fondo_total = profundidad + pared;          // lo que sobresale el bolsillo desde la placa
 rb          = radio_bordes;
+radio_esquinas = min(1, pared * 0.35);      // redondeo 2D de paredes y piso (< pared/2 o las borra)
 
 // Redondea esquinas convexas y cóncavas de una figura 2D
 module redondear(r) {
@@ -96,7 +97,7 @@ module bolsillo_interior() {
 }
 
 module paredes_2d() {
-    redondear(1)
+    redondear(radio_esquinas)
         difference() {
             bolsillo_exterior();
             bolsillo_interior();
@@ -106,7 +107,7 @@ module paredes_2d() {
 }
 
 module piso_2d() {
-    redondear(1)
+    redondear(radio_esquinas)
         difference() {
             bolsillo_exterior();
             // ranura del cable: abierta al frente, con el fondo redondo

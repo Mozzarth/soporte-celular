@@ -10,19 +10,24 @@ en la placa trasera.
 | | mm |
 |---|---|
 | Interior del bolsillo (ancho × profundidad) | 86 × 16 |
-| Pieza completa (ancho × fondo × alto) | 90.8 × 21.4 × 80 |
+| Pieza completa (ancho × fondo × alto) | 90 × 20.5 × 80 |
+| Grosor paredes / placa trasera | 2.0 / 2.5 |
 | Celular con funda que entra | hasta 83 × 14 |
 
 Todas las medidas son parámetros al inicio de `soporte.scad`.
 
-## Generar el STL
+## Generar el modelo
+
+Necesita OpenSCAD nightly (2024 o más nuevo) con el motor **Manifold**:
+renderiza en ~2 s, frente a ~17 min con el motor CGAL de la 2021.01.
 
 ```bash
-make            # usa OpenSCAD instalado
+make            # genera soporte.3mf
 ```
 
-o abre `soporte.scad` en OpenSCAD y exporta con F6 → *Export as STL*.
-El STL listo también está en las [releases](../../releases).
+Se exporta en **3MF** porque conserva la malla exacta; el STL pierde
+precisión y deja la pieza con errores. El archivo listo también está en las
+[releases](../../releases).
 
 ## Impresión (Bambu Lab A1, PLA)
 
