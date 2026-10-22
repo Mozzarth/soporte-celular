@@ -13,7 +13,7 @@ puntos en degradado en la placa trasera y una boca en forma de embudo para recib
 | Pieza completa (ancho × fondo × alto) | 93.4 × 22.2 × 80 |
 | Alto de paredes + boca | 45.5 + 4.5 = 50 |
 | Grosor paredes / placa trasera | 2.0 / 2.5 |
-| Abertura frontal / del piso | 66 / 56 |
+| Abertura frontal / del piso | 70 / 56 |
 | Celular con funda que entra | hasta 83 × 14 |
 
 ## Archivos
@@ -21,10 +21,14 @@ puntos en degradado en la placa trasera y una boca en forma de embudo para recib
 Todo el diseño está en `solidcraft/`:
 
 - `soporte.solidcraft`: el diseño para abrir en la app.
-- `soporte.json`: el script que lo reconstruye desde cero.
-- `gen.py`, `build.py`, `boca.py`, `bordes.py`, `punta.py`: los generadores de ese script
+- `soporte.json`: el script que lo reconstruye desde cero sin abrir la app (lo usa `make`).
+- `todo.py`: reconstruye el soporte completo en una ventana abierta con
+  `solidcraft --control 7878` (~3 min), guarda `soporte.solidcraft` y exporta `soporte.json`.
+- `gen.py`, `boca.py`, `punta.py`: las medidas y los pasos que usa `todo.py`
   (medidas al inicio de cada uno).
-- `live.py`: maneja en vivo una ventana abierta con `solidcraft --control 7878`.
+- `live.py`: el cliente que maneja la ventana en vivo.
+
+Para cambiar una medida: edítala en `gen.py`, `boca.py` o `punta.py` y corre `python3 todo.py`.
 
 ## Generar el modelo
 

@@ -1,6 +1,6 @@
 import json, sys
 AI, PROF, PARED, ESP, ALTO, ALTO_B = 86, 16, 2.0, 2.5, 80, 45.5
-HF, HP = 66, 56                # aberturas: frente y piso
+HF, HP = 70, 56                # aberturas: frente y piso
 BORDE = 6                      # ancho del reborde del piso junto a las paredes
 AE = AI / 2 + PARED            # medio ancho exterior
 FONDO = PROF + PARED
@@ -36,7 +36,7 @@ def stage(n):
     cmd("sketch.line", closed=True, points=[[-HF/2, -FONDO - 1], [HF/2, -FONDO - 1], [HF/2, yf], [xi, yf],
                                             [xi, -3.5], [-xi, -3.5], [-xi, yf], [-HF/2, yf]])
     cmd("sketch.fillet", points=["l4.end", "l5.end"], radius=4)
-    cmd("sketch.fillet", points=["l3.end", "l6.end"], radius=2)   # la vuelta del reborde, en curva
+    cmd("sketch.fillet", points=["l3.end", "l6.end"], radius=1.5)   # la vuelta del reborde, en curva
     cmd("sketch.finish")
     cmd("solid.extrude", distance=PARED + 2, operation="cut")
 def fillets_verticales():

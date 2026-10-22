@@ -1,7 +1,7 @@
 """Boca en forma de embudo sobre las paredes: se abre hacia el frente y los lados, la placa queda recta."""
 import json, sys
 
-AI, PROF, PARED, HF = 86, 16, 2.0, 66
+AI, PROF, PARED, HF = 86, 16, 2.0, 70
 Z0, ALTO, ABRE = 45.5, 4.5, 2      # paredes de 45.5 (con 45 exactos SolidCraft falla el filete del piso); la boca termina a 50
 ESP = 2.5                          # la boca llega hasta la espalda: queda unida a la placa
 R_BORDE = 0.8                      # redondeo del canto de la boca
@@ -31,7 +31,8 @@ def comandos():
     # el hueco: atrás pasa la espalda (solo corta la boca) y arriba sube 1 mm más con la misma pendiente,
     # porque caras al mismo nivel dejan una tapa de grosor cero
     extra = ABRE * (ALTO + 2) / ALTO
-    C += contorno("boca_int_0", Z0 - 1, AI / 2, PROF, 5, atras=ESP + 1)
+    # arranca 0.1 mm dentro de la pared: si coincide con su cara interior, la unión necesita un reintento y deja grietas
+    C += contorno("boca_int_0", Z0 - 1, AI / 2 + 0.1, PROF + 0.1, 5 + 0.1, atras=ESP + 1)
     C += contorno("boca_int_2", Z0 + ALTO + 1, AI / 2 + extra, PROF + extra, 5 + extra, atras=ESP + 1)
     C.append({"command": "solid.loft", "params": {"sections": [{"sketch": "boca_int_0"}, {"sketch": "boca_int_2"}],
                                                    "operation": "cut", "targets": ["boca"], "name": "boca_hueco"}})

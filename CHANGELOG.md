@@ -4,6 +4,11 @@
 
 - Se deja de usar OpenSCAD: se quita `soporte.scad` y el diseño único es el de SolidCraft
   (`solidcraft/`). `make` genera ahora `soporte.step` con `solidcraft-cli`.
+- Abertura frontal de 66 a 70 mm (aletas de 8 mm) para que se vea más el teléfono.
+- Corrige las grietas de la malla (57-68 aristas abiertas en Bambu Studio):
+  - La O se corta en dos mitades dejando el puente sin cortar, en vez de pegarle un bloque.
+  - El corte interior de la boca arranca 0.1 mm dentro de la pared.
+- `todo.py` reconstruye el diseño completo en la app; reemplaza a `build.py` y `bordes.py`.
 
 ## v1.1.0
 

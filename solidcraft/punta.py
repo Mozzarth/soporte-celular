@@ -1,7 +1,7 @@
 """Punta del embudo redondeada vista de frente: un corte en arco en la esquina superior, a cada lado."""
 import math
 
-HF, ZTOP, R = 66, 50, 2.5          # abertura frontal, altura de la boca, radio de la punta
+HF, ZTOP, R = 70, 50, 2.5          # abertura frontal, altura de la boca, radio de la punta
 
 
 def comandos():
