@@ -1,7 +1,6 @@
 import json, sys
-AI, PROF, PARED, ESP, ALTO, ALTO_B = 86, 16, 2.0, 2.5, 80, 45.5
-HF, HP = 70, 56                # aberturas: frente y piso
-BORDE = 6                      # ancho del reborde del piso junto a las paredes
+AI, PROF, PARED, ESP, ALTO, ALTO_B = 84.5, 13, 2.0, 2.5, 80, 45.5
+HF, HP = 66.5, 56                # aberturas: frente y piso
 AE = AI / 2 + PARED            # medio ancho exterior
 FONDO = PROF + PARED
 C = []
@@ -28,15 +27,18 @@ def stage(n):
     cmd("sketch.rectangle.two_point", p0=[-HF/2, -FONDO - 1], p1=[HF/2, -PROF + 0.5])
     cmd("sketch.finish")
     cmd("solid.extrude", distance=ALTO_B, operation="cut")
-    # ranura del piso
-    # piso hueco: solo queda un reborde de BORDE mm junto a cada pared y la franja trasera
-    xi = AI / 2 - BORDE
+    # ranura del piso para el cable (HP de ancho, más angosta que la abertura frontal), abierta al frente y con las esquinas de atrás
+    # redondeadas; a los lados el piso queda lleno (sostiene el teléfono) y atrás queda una franja de 3.5 mm
+    # al llegar al frente la ranura se abre en curva (radio RF): la esquina del piso queda redonda
+    RF = 2
     cmd("sketch.create", plane="XY", offset=-1, name="piso_hueco")
-    yf = -PROF + BORDE                     # el reborde también sigue por detrás de las aletas
-    cmd("sketch.line", closed=True, points=[[-HF/2, -FONDO - 1], [HF/2, -FONDO - 1], [HF/2, yf], [xi, yf],
-                                            [xi, -3.5], [-xi, -3.5], [-xi, yf], [-HF/2, yf]])
-    cmd("sketch.fillet", points=["l4.end", "l5.end"], radius=4)
-    cmd("sketch.fillet", points=["l3.end", "l6.end"], radius=1.5)   # la vuelta del reborde, en curva
+    cmd("sketch.line", points=[[HP/2, -FONDO + RF], [HP/2, -3.5], [-HP/2, -3.5], [-HP/2, -FONDO + RF]])
+    for s in (-1, 1):
+        c = [s * (HP/2 + RF), -FONDO + RF]
+        m = [c[0] - s * RF * 0.7071, c[1] - RF * 0.7071]
+        cmd("sketch.arc.three_point", start=[s * HP/2, -FONDO + RF], end=[s * (HP/2 + RF), -FONDO], through=m)
+    cmd("sketch.line", points=[[HP/2 + RF, -FONDO], [HP/2 + RF, -FONDO - 1], [-HP/2 - RF, -FONDO - 1], [-HP/2 - RF, -FONDO]])
+    cmd("sketch.fillet", points=["l1.end", "l2.end"], radius=4)
     cmd("sketch.finish")
     cmd("solid.extrude", distance=PARED + 2, operation="cut")
 def fillets_verticales():

@@ -2,19 +2,19 @@
 
 Soporte para pegar en la pared con cinta doble faz, diseñado en
 [SolidCraft](https://github.com/tangency-labs/solidcraft). Abierto por el frente y por abajo
-(para el cable de carga), con el nombre **MOISES** calado en JetBrains Mono Bold, un patrón de
+(para el cable de carga), con un nombre calado en JetBrains Mono Bold (ahora **ERWIN**; se cambia en `solidcraft/nombre.py`), un patrón de
 puntos en degradado en la placa trasera y una boca en forma de embudo para recibir el celular.
 
 ## Medidas
 
 | | mm |
 |---|---|
-| Interior del bolsillo (ancho × profundidad) | 86 × 16 |
-| Pieza completa (ancho × fondo × alto) | 93.4 × 22.2 × 80 |
+| Interior del bolsillo (ancho × profundidad) | 84.5 × 13 |
+| Pieza completa (ancho × fondo × alto) | 91.9 × 19.2 × 80 |
 | Alto de paredes + boca | 45.5 + 4.5 = 50 |
 | Grosor paredes / placa trasera | 2.0 / 2.5 |
-| Abertura frontal / del piso | 70 / 56 |
-| Celular con funda que entra | hasta 83 × 14 |
+| Abertura frontal / ranura del piso | 66.5 / 56 |
+| Celular con funda que entra | hasta 83 × 12 |
 
 ## Archivos
 
@@ -24,11 +24,13 @@ Todo el diseño está en `solidcraft/`:
 - `soporte.json`: el script que lo reconstruye desde cero sin abrir la app (lo usa `make`).
 - `todo.py`: reconstruye el soporte completo en una ventana abierta con
   `solidcraft --control 7878` (~3 min), guarda `soporte.solidcraft` y exporta `soporte.json`.
-- `gen.py`, `boca.py`, `punta.py`: las medidas y los pasos que usa `todo.py`
-  (medidas al inicio de cada uno).
+- `gen.py`, `boca.py`, `punta.py`, `nombre.py`: las medidas y los pasos que usa `todo.py`
+  (medidas al inicio de cada uno). `nombre.py` pone un puente bajo el hueco de cada letra cerrada
+  (A, D, O, R…), así que sirve para cualquier nombre.
 - `live.py`: el cliente que maneja la ventana en vivo.
 
-Para cambiar una medida: edítala en `gen.py`, `boca.py` o `punta.py` y corre `python3 todo.py`.
+Para cambiar una medida o el nombre: edítalo en `gen.py`, `boca.py`, `punta.py` o `nombre.py` y corre
+`python3 todo.py`.
 
 ## Generar el modelo
 

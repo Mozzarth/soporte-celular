@@ -8,7 +8,7 @@ momento, guarda soporte.solidcraft y exporta soporte.json, el script que lo reha
 import json, math, os, sys, time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import live, boca, punta
+import live, boca, punta, nombre
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 src = open(os.path.join(AQUI, 'gen.py')).read().split("n = int(sys.argv[1])")[0]
@@ -37,6 +37,21 @@ def ej(command, params):
     elif r['result'].get('isError'):
         sys.exit(f'ERROR en {command}: {o[:300]}')
     return o
+
+
+def redondear(nombre, edges, radios):
+    """Redondeo de terminación: si el radio no cabe, prueba los siguientes; si ninguno cabe, lo salta y avisa."""
+    for r in radios:
+        res = live.llamar('execute', {'command': 'solid.fillet', 'params': {'edges': edges, 'radius': r}, 'verbose': False})
+        o = txt(res)
+        if 'still running' in o:
+            esperar()
+            return
+        if not res['result'].get('isError'):
+            if r != radios[0]:
+                print(f'         {nombre}: {radios[0]} mm no cabe, quedó en {r} mm')
+            return
+    print(f'         {nombre}: no se pudo redondear ({o[:80]})')
 
 
 def correr(cmds):
@@ -69,17 +84,8 @@ G['fillets_verticales']()
 correr(G['C'])
 ej('solid.fillet', {'edges': G['concavas_piso'](aristas()), 'radius': 2})
 
-paso('nombre calado: la O se corta en dos mitades y el puente queda sin cortar')
-correr([
-    {'command': 'sketch.create', 'params': {'plane': 'XZ', 'flip': True, 'name': 'nombre'}},
-    {'command': 'sketch.text', 'params': {'text': 'MOISES', 'at': [0, 60.5], 'height': 9,
-                                          'font': 'JetBrainsMono Nerd Font', 'bold': True, 'align': 'center'}},
-    {'command': 'sketch.rectangle.two_point', 'params': {'p0': [-12.1, 59.5], 'p1': [-10.1, 70.5]}},
-    {'command': 'sketch.finish', 'params': {}},
-    # 0 M · 1 y 6 mitades de la O · 10-13 I S E S (el centro y los puentes de la O no se cortan)
-    {'command': 'solid.extrude', 'params': {'profiles': [0, 1, 6, 10, 11, 12, 13], 'through_all': True,
-                                            'direction': 'symmetric', 'operation': 'cut'}},
-])
+paso(f'nombre calado: {nombre.TEXTO}, con puente bajo el hueco de cada letra cerrada')
+correr(nombre.comandos()[0])
 
 paso('puntos en degradado')
 puntos = [{'command': 'sketch.create', 'params': {'plane': 'XZ', 'flip': True, 'name': 'puntos'}}]
@@ -111,15 +117,15 @@ ej('solid.fillet', {'edges': [e['mid'] for e in E if plana(e, 1, 0) and abs(e['m
 paso('bordes: contorno de la placa, reborde del piso y base')
 E = aristas()
 placa = [e['mid'] for e in E if plana(e, 1, 0) and e['mid'][2] > ALTO_B
-         and not (abs(e['mid'][0]) < 23 and 59 < e['mid'][2] < 71) and not (abs(e['mid'][0]) < 37 and e['mid'][2] < 56)]
-ej('solid.fillet', {'edges': placa, 'radius': 0.9})
+         and not (abs(e['mid'][0]) < 37 and 58 < e['mid'][2] < 72) and not (abs(e['mid'][0]) < 37 and e['mid'][2] < 56)]  # sin letras ni puntos
+redondear('contorno de la placa', placa, (0.9, 0.6, 0.4))
 E = aristas()
-reborde = [e['mid'] for e in E if plana(e, 2, 2) and abs(abs(e['mid'][0]) - AI / 2) > 3 and e['mid'][1] < -3
-           and (abs(e['mid'][0]) <= HF / 2 or e['mid'][1] > -(PROF - 3)) and not cerca_punta(e['mid'])]
-ej('solid.fillet', {'edges': reborde, 'radius': 0.9})
+# canto de la ranura del piso (la U que se ve desde arriba): solo sus aristas, sin la franja de atrás
+reborde = [e['mid'] for e in E if plana(e, 2, 2) and abs(e['mid'][0]) <= G['HP'] / 2 + 0.05 and -(PROF + 1.7) < e['mid'][1] < -3.0]  # sin los arcos del frente: rozan caras chicas
+redondear('canto del piso', reborde, (0.9, 0.6, 0.4))
 E = aristas()
 base = [e['mid'] for e in E if plana(e, 2, 0) and e['mid'][1] < ESP - 0.01 and not cerca_punta(e['mid'])]
-ej('solid.fillet', {'edges': base, 'radius': 0.45})
+redondear('base', base, (0.45, 0.3))
 
 paso('boca en embudo')
 correr(boca.comandos() + boca.unir() + boca.abertura())

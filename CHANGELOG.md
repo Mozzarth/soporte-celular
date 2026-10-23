@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.2.0
+
+- Nombre configurable en `solidcraft/nombre.py` (ahora **ERWIN**): cada letra con hueco cerrado lleva
+  un puente debajo del hueco, que lo sostiene al imprimir de pie y deja entera la parte de arriba.
+- Bolsillo más justo para que el teléfono no baile: ancho interior de 86 a 84.5 mm y profundidad de
+  16 a 13 mm (teléfono de 83 × 12 mm con funda). El embudo conserva su ángulo.
+- Aletas del frente de 8 a 9 mm (abertura frontal de 66.5 mm).
+- Piso: se cierran los entrantes de los lados; queda lleno junto a las paredes y una ranura de 56 mm
+  para el cable, con las esquinas de atrás y del frente redondeadas.
+- Punta del embudo redondeada vista de frente (arco de 4.5 mm). El corte anterior fallaba sin avisar
+  y no cortaba nada.
+- `todo.py`: los redondeos de terminación prueban radios más chicos si no caben, y avisan.
+- Malla cerrada, sin aristas abiertas.
+
 ## v1.1.1
 
 - Se deja de usar OpenSCAD: se quita `soporte.scad` y el diseño único es el de SolidCraft

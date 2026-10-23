@@ -1,7 +1,7 @@
 """Boca en forma de embudo sobre las paredes: se abre hacia el frente y los lados, la placa queda recta."""
 import json, sys
 
-AI, PROF, PARED, HF = 86, 16, 2.0, 70
+AI, PROF, PARED, HF = 84.5, 13, 2.0, 66.5
 Z0, ALTO, ABRE = 45.5, 4.5, 2      # paredes de 45.5 (con 45 exactos SolidCraft falla el filete del piso); la boca termina a 50
 ESP = 2.5                          # la boca llega hasta la espalda: queda unida a la placa
 R_BORDE = 0.8                      # redondeo del canto de la boca
